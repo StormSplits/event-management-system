@@ -23,6 +23,7 @@ interface EventCardProps {
     isPast?: boolean;
     isRegistered?: boolean;
     className?: string;
+    footerAction?: React.ReactNode;
 }
 
 export function EventCard({
@@ -37,6 +38,7 @@ export function EventCard({
     isPast = false,
     isRegistered = false,
     className,
+    footerAction,
 }: EventCardProps) {
     const percentage = Math.round((registered / capacity) * 100);
     const isFull = registered >= capacity;
@@ -111,14 +113,18 @@ export function EventCard({
             </CardContent>
 
             <CardFooter className="p-4 pt-0">
-                <Button
-                    className="w-full pointer-events-none"
-                    disabled={isFull || isPast}
-                    variant={isPast ? "outline" : isFull ? "outline" : isRegistered ? "outline" : "default"}
-                >
-                    {isPast ? "Event Ended" : isRegistered ? "Registered ✓" : isFull ? "Event Full" : "Register Now"}
-                    {!isFull && !isPast && !isRegistered && <ArrowRight className="ml-2 h-4 w-4" />}
-                </Button>
+                {footerAction ? (
+                    footerAction
+                ) : (
+                    <Button
+                        className="w-full pointer-events-none"
+                        disabled={isFull || isPast}
+                        variant={isPast ? "outline" : isFull ? "outline" : isRegistered ? "outline" : "default"}
+                    >
+                        {isPast ? "Event Ended" : isRegistered ? "Registered ✓" : isFull ? "Event Full" : "Register Now"}
+                        {!isFull && !isPast && !isRegistered && <ArrowRight className="ml-2 h-4 w-4" />}
+                    </Button>
+                )}
             </CardFooter>
         </Card>
     );

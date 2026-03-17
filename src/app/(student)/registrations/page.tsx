@@ -65,14 +65,10 @@ export default async function MyRegistrationsPage() {
                                     image={event.image || "/placeholder"}
                                     isPast={event.isPast}
                                     isRegistered={true}
+                                    footerAction={!event.isPast ? <UnregisterButton eventId={event.id} /> : undefined}
                                 />
                             </div>
                         </EventDetailModal>
-                        {!event.isPast && (
-                            <div className="mt-2 text-center">
-                                <UnregisterButton eventId={event.id} />
-                            </div>
-                        )}
                     </div>
                 ))}
             </div>
